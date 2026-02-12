@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+*.db
+*.sqlite
+apps/server/data/
+.turbo/
+.vite/
+*.log
+.DS_Store
+Thumbs.db

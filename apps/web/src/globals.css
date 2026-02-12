@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* === Cyberpunk Theme Variables === */
+
+@theme {
+  --color-cyber-bg: #0a0a0f;
+  --color-cyber-bg-secondary: #0d1117;
+  --color-cyber-bg-tertiary: #161b22;
+  --color-cyber-bg-surface: #1c2333;
+
+  --color-cyber-cyan: #00f0ff;
+  --color-cyber-cyan-dim: #00f0ff33;
+  --color-cyber-cyan-glow: #00f0ff1a;
+  --color-cyber-magenta: #ff00aa;
+  --color-cyber-magenta-dim: #ff00aa33;
+  --color-cyber-blue: #4d7cff;
+  --color-cyber-green: #00ff88;
+  --color-cyber-green-dim: #00ff8833;
+  --color-cyber-yellow: #ffcc00;
+  --color-cyber-yellow-dim: #ffcc0033;
+  --color-cyber-red: #ff3366;
+  --color-cyber-red-dim: #ff336633;
+  --color-cyber-purple: #b44dff;
+  --color-cyber-purple-dim: #b44dff33;
+  --color-cyber-orange: #ff6b2b;
+
+  --color-cyber-text: #e6edf3;
+  --color-cyber-text-muted: #8b949e;
+  --color-cyber-text-disabled: #484f58;
+  --color-cyber-border: #21262d;
+  --color-cyber-border-muted: #161b22;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'Orbitron', sans-serif;
+
+  --shadow-glow-cyan: 0 0 10px rgba(0, 240, 255, 0.3), 0 0 40px rgba(0, 240, 255, 0.1);
+  --shadow-glow-magenta: 0 0 10px rgba(255, 0, 170, 0.3), 0 0 40px rgba(255, 0, 170, 0.1);
+  --shadow-glow-green: 0 0 10px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.1);
+  --shadow-glow-red: 0 0 10px rgba(255, 51, 102, 0.3), 0 0 40px rgba(255, 51, 102, 0.1);
+  --shadow-glow-purple: 0 0 10px rgba(180, 77, 255, 0.3), 0 0 40px rgba(180, 77, 255, 0.1);
+
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-scanline: scanline 8s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* === Base Styles === */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #21262d #0a0a0f;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #30363d;
+}
+
+/* Grid background pattern */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Corner cut effect */
+.corner-cut {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+/* Glow text */
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.text-glow-magenta {
+  text-shadow: 0 0 10px rgba(255, 0, 170, 0.5), 0 0 30px rgba(255, 0, 170, 0.2);
+}
+
+/* Status dot animation */
+.status-dot-active {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient border (bottom of topbar) */
+.border-gradient {
+  border-image: linear-gradient(90deg, #00f0ff, #ff00aa) 1;
+}
