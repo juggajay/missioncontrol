@@ -3,14 +3,11 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"],
       "@mission-control/shared": ["../../packages/shared/src"]
     }
   },
-  "include": ["src"],
-  "references": [
-    { "path": "../../packages/shared" }
-  ]
+  "include": ["src", "../../packages/shared/src"]
 }

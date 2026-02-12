@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import { Router, type Router as RouterType } from 'express';
 import type { GatewayClient } from '../gateway/client.js';
 import { createGatewayMethods } from '../gateway/methods.js';
 
-export function createApiRouter(gatewayClient: GatewayClient) {
+export function createApiRouter(gatewayClient: GatewayClient): RouterType {
   const router = Router();
   const gw = createGatewayMethods(gatewayClient);
 
@@ -25,47 +25,51 @@ export function createApiRouter(gatewayClient: GatewayClient) {
     }
   });
 
-  router.patch('/sessions/:key(*)', async (req, res) => {
+  // Session operations use POST with sessionKey in body (keys contain colons)
+  router.post('/sessions/patch', async (req, res) => {
     try {
-      const sessionKey = req.params.key;
-      await gw.sessionsPatch({ sessionKey, ...req.body });
+      const { sessionKey, ...rest } = req.body;
+      await gw.sessionsPatch({ sessionKey, ...rest });
       res.json({ ok: true });
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
     }
   });
 
-  router.post('/sessions/:key(*)/reset', async (req, res) => {
+  router.post('/sessions/reset', async (req, res) => {
     try {
-      await gw.sessionsReset(req.params.key);
+      const { sessionKey } = req.body;
+      await gw.sessionsReset(sessionKey);
       res.json({ ok: true });
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
     }
   });
 
-  router.post('/sessions/:key(*)/send', async (req, res) => {
+  router.post('/sessions/send', async (req, res) => {
     try {
-      const { text, idempotencyKey } = req.body;
-      const result = await gw.chatSend(req.params.key, text, idempotencyKey);
+      const { sessionKey, text, idempotencyKey } = req.body;
+      const result = await gw.chatSend(sessionKey, text, idempotencyKey);
       res.json(result);
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
     }
   });
 
-  router.post('/sessions/:key(*)/abort', async (req, res) => {
+  router.post('/sessions/abort', async (req, res) => {
     try {
-      await gw.chatAbort(req.params.key);
+      const { sessionKey } = req.body;
+      await gw.chatAbort(sessionKey);
       res.json({ ok: true });
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
     }
   });
 
-  router.get('/sessions/:key(*)/history', async (req, res) => {
+  router.post('/sessions/history', async (req, res) => {
     try {
-      const history = await gw.chatHistory(req.params.key);
+      const { sessionKey } = req.body;
+      const history = await gw.chatHistory(sessionKey);
       res.json(history);
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });

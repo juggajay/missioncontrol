@@ -46,13 +46,13 @@ mission-control/
 
 ## Build Phases & Progress
 
-### Phase 1: Connect + Monitor [NOT STARTED]
-- [ ] Project scaffold (pnpm workspace, Vite, Express, shared types)
-- [ ] Gateway client (WS connection, auth, reconnection)
-- [ ] Event streaming pipeline (gateway → backend → browser)
+### Phase 1: Connect + Monitor [IN PROGRESS]
+- [x] Project scaffold (pnpm workspace, Vite, Express, shared types)
+- [x] Gateway client (WS connection, auth, reconnection)
+- [x] Event streaming pipeline (gateway → backend → browser)
+- [x] Connection status UI
 - [ ] ReactFlow agent graph (sessions, actions, exec nodes)
 - [ ] Exec approval queue
-- [ ] Connection status UI
 
 ### Phase 2: Task Management [NOT STARTED]
 - [ ] SQLite schema + task CRUD API
