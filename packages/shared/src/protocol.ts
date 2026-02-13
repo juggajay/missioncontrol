@@ -41,7 +41,7 @@ export interface ClientInfo {
   id: string;
   version: string;
   platform: string;
-  mode: 'webchat' | 'cli' | 'ui';
+  mode: 'webchat' | 'cli' | 'ui' | 'backend' | 'node' | 'test' | 'probe';
 }
 
 export interface ChallengePayload {

@@ -6,6 +6,8 @@ import { loadConfig } from './lib/config.js';
 import { GatewayClient } from './gateway/client.js';
 import { createWSServer } from './ws/server.js';
 import { createApiRouter } from './api/router.js';
+import { createTaskRouter } from './api/tasks.js';
+import { initDatabase } from './db/index.js';
 import { log } from './lib/logger.js';
 
 async function main() {
@@ -17,9 +19,12 @@ async function main() {
   log.info('server', `Gateway: ${config.gatewayUrl}`);
   log.info('server', `Token: ${config.gatewayToken ? '***' + config.gatewayToken.slice(-4) : '(none)'}`);
 
+  // Initialize SQLite database
+  await initDatabase();
+
   // Express app
   const app = express();
-  app.use(cors({ origin: ['http://localhost:5173', 'http://127.0.0.1:5173'] }));
+  app.use(cors());
   app.use(express.json());
 
   // HTTP server (shared between Express and WebSocket)
@@ -29,16 +34,17 @@ async function main() {
   const gatewayClient = new GatewayClient(config.gatewayUrl, config.gatewayToken);
 
   // WebSocket server (browser ← backend)
-  createWSServer(httpServer, gatewayClient, config.gatewayUrl);
+  const { broadcast } = createWSServer(httpServer, gatewayClient, config.gatewayUrl);
 
   // REST API
   app.use('/api', createApiRouter(gatewayClient));
+  app.use('/api/tasks', createTaskRouter(gatewayClient, broadcast));
 
   // Start HTTP server
-  httpServer.listen(config.port, () => {
-    log.success('server', `Listening on http://localhost:${config.port}`);
-    log.info('server', `WS endpoint: ws://localhost:${config.port}/ws`);
-    log.info('server', `API endpoint: http://localhost:${config.port}/api`);
+  httpServer.listen(config.port, '0.0.0.0', () => {
+    log.success('server', `Listening on http://0.0.0.0:${config.port}`);
+    log.info('server', `WS endpoint: ws://0.0.0.0:${config.port}/ws`);
+    log.info('server', `API endpoint: http://0.0.0.0:${config.port}/api`);
   });
 
   // Connect to gateway (non-blocking, will auto-reconnect)

@@ -19,8 +19,8 @@ export function createGatewayMethods(client: GatewayClient) {
     },
 
     // Chat
-    async chatSend(sessionKey: string, text: string, idempotencyKey: string): Promise<{ runId: string; status: string }> {
-      return client.call('chat.send', { sessionKey, text, idempotencyKey });
+    async chatSend(sessionKey: string, message: string, idempotencyKey: string): Promise<{ runId: string; status: string }> {
+      return client.call('chat.send', { sessionKey, message, idempotencyKey });
     },
 
     async chatAbort(sessionKey: string): Promise<void> {
@@ -31,8 +31,8 @@ export function createGatewayMethods(client: GatewayClient) {
       return client.call('chat.history', { sessionKey });
     },
 
-    async chatInject(sessionKey: string, text: string): Promise<void> {
-      return client.call('chat.inject', { sessionKey, text });
+    async chatInject(sessionKey: string, message: string): Promise<void> {
+      return client.call('chat.inject', { sessionKey, message });
     },
 
     // Agents
@@ -40,12 +40,12 @@ export function createGatewayMethods(client: GatewayClient) {
       return client.call('agents.list', {});
     },
 
-    async agentsFilesGet(agentId: string, path: string): Promise<unknown> {
-      return client.call('agents.files.get', { agentId, path });
+    async agentsFilesGet(agentId: string, name: string): Promise<unknown> {
+      return client.call('agents.files.get', { agentId, name });
     },
 
-    async agentsFilesSet(agentId: string, path: string, content: string): Promise<void> {
-      return client.call('agents.files.set', { agentId, path, content });
+    async agentsFilesSet(agentId: string, name: string, content: string): Promise<void> {
+      return client.call('agents.files.set', { agentId, name, content });
     },
 
     // Config

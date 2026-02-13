@@ -7,13 +7,15 @@ export const SERVER_DEFAULT_PORT = 3001;
 export const PROTOCOL_VERSION = 3;
 
 export const CLIENT_INFO = {
-  id: 'mission-control',
+  id: 'gateway-client' as const,
   version: '0.1.0',
-  platform: 'web',
-  mode: 'webchat' as const,
+  platform: 'node',
+  mode: 'backend' as const,
 };
 
 export const OPERATOR_SCOPES = [
+  'operator.read',
+  'operator.write',
   'operator.admin',
   'operator.approvals',
   'operator.pairing',

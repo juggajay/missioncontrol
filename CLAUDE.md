@@ -46,35 +46,35 @@ mission-control/
 
 ## Build Phases & Progress
 
-### Phase 1: Connect + Monitor [IN PROGRESS]
+### Phase 1: Connect + Monitor [COMPLETE]
 - [x] Project scaffold (pnpm workspace, Vite, Express, shared types)
 - [x] Gateway client (WS connection, auth, reconnection)
 - [x] Event streaming pipeline (gateway → backend → browser)
 - [x] Connection status UI
-- [ ] ReactFlow agent graph (sessions, actions, exec nodes)
-- [ ] Exec approval queue
+- [x] ReactFlow agent graph (sessions, actions, exec nodes)
+- [x] Exec approval queue
 
-### Phase 2: Task Management [NOT STARTED]
-- [ ] SQLite schema + task CRUD API
-- [ ] Kanban board UI (planning → inbox → assigned → in_progress → testing → review → done)
-- [ ] Task dispatch via chat.send
-- [ ] Agent assignment + lifecycle
-- [ ] AI-guided planning flow
-- [ ] SSE/WS push for task state changes
+### Phase 2: Task Management [COMPLETE]
+- [x] SQLite schema + task CRUD API
+- [x] Kanban board UI (planning → inbox → assigned → in_progress → testing → review → done)
+- [x] Task dispatch via chat.send
+- [x] Agent assignment + lifecycle
+- [ ] AI-guided planning flow (deferred — future enhancement)
+- [x] SSE/WS push for task state changes
 
-### Phase 3: Config & File Editing [NOT STARTED]
-- [ ] CodeMirror 6 editor component
-- [ ] Gateway config viewer/editor (config.get/patch)
-- [ ] Agent workspace file editor (agents.files.get/set)
-- [ ] Session settings (model, thinking level) via sessions.patch
-- [ ] Cron job manager (cron.list/add/run/remove)
+### Phase 3: Config & File Editing [COMPLETE]
+- [x] CodeMirror 6 editor component
+- [x] Gateway config viewer/editor (config.get/patch)
+- [x] Agent workspace file editor (agents.files.get/set)
+- [x] Session settings (model, thinking level) via sessions.patch
+- [x] Cron job manager (cron.list/add/run/remove)
 
-### Phase 4: Full Control [NOT STARTED]
-- [ ] chat.abort for interrupting agents
-- [ ] sessions.reset for resetting sessions
-- [ ] Device management (node.list/invoke)
-- [ ] Usage/cost dashboard (token consumption from chat events)
-- [ ] Multi-agent orchestration view
+### Phase 4: Full Control [COMPLETE]
+- [x] chat.abort for interrupting agents
+- [x] sessions.reset for resetting sessions
+- [x] Device management (node.list/invoke)
+- [x] Usage/cost dashboard (token consumption from chat events)
+- [x] Multi-agent orchestration view
 
 ## How to Run
 ```bash

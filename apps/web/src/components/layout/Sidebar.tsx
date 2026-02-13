@@ -6,6 +6,9 @@ import {
   Settings,
   Clock,
   LayoutDashboard,
+  Cpu,
+  BarChart3,
+  GitBranch,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +19,9 @@ const navItems = [
   { to: '/sessions', icon: Terminal, label: 'Sessions' },
   { to: '/config', icon: Settings, label: 'Config' },
   { to: '/cron', icon: Clock, label: 'Cron' },
+  { to: '/devices', icon: Cpu, label: 'Devices' },
+  { to: '/usage', icon: BarChart3, label: 'Usage' },
+  { to: '/orchestration', icon: GitBranch, label: 'Orchestrate' },
 ];
 
 export function Sidebar() {

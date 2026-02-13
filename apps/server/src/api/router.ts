@@ -48,8 +48,8 @@ export function createApiRouter(gatewayClient: GatewayClient): RouterType {
 
   router.post('/sessions/send', async (req, res) => {
     try {
-      const { sessionKey, text, idempotencyKey } = req.body;
-      const result = await gw.chatSend(sessionKey, text, idempotencyKey);
+      const { sessionKey, text, message, idempotencyKey } = req.body;
+      const result = await gw.chatSend(sessionKey, message || text, idempotencyKey);
       res.json(result);
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
@@ -81,6 +81,27 @@ export function createApiRouter(gatewayClient: GatewayClient): RouterType {
     try {
       const agents = await gw.agentsList();
       res.json(agents);
+    } catch (err) {
+      res.status(502).json({ error: (err as Error).message });
+    }
+  });
+
+  // Agent files
+  router.post('/agents/files/get', async (req, res) => {
+    try {
+      const { agentId, path, name } = req.body;
+      const result = await gw.agentsFilesGet(agentId, name || path);
+      res.json(result);
+    } catch (err) {
+      res.status(502).json({ error: (err as Error).message });
+    }
+  });
+
+  router.post('/agents/files/set', async (req, res) => {
+    try {
+      const { agentId, path, name, content } = req.body;
+      await gw.agentsFilesSet(agentId, name || path, content);
+      res.json({ ok: true });
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
     }
@@ -159,6 +180,50 @@ export function createApiRouter(gatewayClient: GatewayClient): RouterType {
     try {
       await gw.cronRemove(req.params.id);
       res.json({ ok: true });
+    } catch (err) {
+      res.status(502).json({ error: (err as Error).message });
+    }
+  });
+
+  router.patch('/cron/:id', async (req, res) => {
+    try {
+      const { enabled } = req.body;
+      if (enabled) {
+        await gw.cronEnable(req.params.id);
+      } else {
+        await gw.cronDisable(req.params.id);
+      }
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(502).json({ error: (err as Error).message });
+    }
+  });
+
+  // Nodes / Devices
+  router.get('/nodes', async (_req, res) => {
+    try {
+      const nodes = await gw.nodeList();
+      res.json(nodes);
+    } catch (err) {
+      res.status(502).json({ error: (err as Error).message });
+    }
+  });
+
+  router.post('/nodes/invoke', async (req, res) => {
+    try {
+      const { nodeId, capability, params } = req.body;
+      const result = await gw.nodeInvoke(nodeId, capability, params);
+      res.json(result);
+    } catch (err) {
+      res.status(502).json({ error: (err as Error).message });
+    }
+  });
+
+  // Models
+  router.get('/models', async (_req, res) => {
+    try {
+      const models = await gw.modelsList();
+      res.json(models);
     } catch (err) {
       res.status(502).json({ error: (err as Error).message });
     }

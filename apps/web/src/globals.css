@@ -110,3 +110,66 @@
 .border-gradient {
   border-image: linear-gradient(90deg, #00f0ff, #ff00aa) 1;
 }
+
+/* === ReactFlow Overrides === */
+
+/* Spawn edge dash animation */
+@keyframes dash-flow {
+  to { stroke-dashoffset: -12; }
+}
+
+/* Dark theme overrides for ReactFlow */
+.agent-graph .react-flow__background {
+  background-color: #0a0a0f;
+}
+
+.agent-graph .react-flow__minimap {
+  background-color: #0d1117;
+}
+
+.agent-graph .react-flow__controls button {
+  background-color: #161b22;
+  border-color: #21262d;
+  color: #8b949e;
+  fill: #8b949e;
+}
+
+.agent-graph .react-flow__controls button:hover {
+  background-color: #1c2333;
+  color: #00f0ff;
+  fill: #00f0ff;
+}
+
+.agent-graph .react-flow__controls button svg {
+  fill: currentColor;
+}
+
+.agent-graph .react-flow__edge-path {
+  stroke: #21262d;
+}
+
+.agent-graph .react-flow__node {
+  cursor: grab;
+}
+
+.agent-graph .react-flow__node:active {
+  cursor: grabbing;
+}
+
+.agent-graph .react-flow__node.selected {
+  outline: none;
+}
+
+/* Remove default ReactFlow node styling that conflicts */
+.agent-graph .react-flow__node-session,
+.agent-graph .react-flow__node-action,
+.agent-graph .react-flow__node-exec {
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+}

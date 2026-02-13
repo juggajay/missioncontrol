@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import { Topbar } from './Topbar';
 import { Sidebar } from './Sidebar';
+import { ApprovalQueue } from '../ApprovalQueue';
+import { ErrorBoundary } from '../ErrorBoundary';
 import { Toaster } from 'sonner';
 
 export function Shell() {
@@ -10,9 +12,12 @@ export function Shell() {
       <Sidebar />
       <main className="pt-14 pl-14 min-h-screen">
         <div className="p-6">
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </div>
       </main>
+      <ApprovalQueue />
       <Toaster
         position="bottom-right"
         toastOptions={{

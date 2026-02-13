@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { getWSClient } from '@/lib/ws-client';
 import { useGatewayStore } from '@/stores/gateway';
 import { useAgentStore } from '@/stores/agents';
+import { useTaskStore } from '@/stores/tasks';
 import type { WSServerMessage, AgentEvent, ChatEvent } from '@mission-control/shared';
 import { parseSessionKey } from '@mission-control/shared';
 
@@ -12,6 +13,7 @@ export function useWebSocket() {
   const addApproval = useGatewayStore((s) => s.addApproval);
   const upsertSession = useAgentStore((s) => s.upsertSession);
   const upsertAction = useAgentStore((s) => s.upsertAction);
+  const handleTaskUpdate = useTaskStore((s) => s.handleTaskUpdate);
 
   useEffect(() => {
     const client = clientRef.current;
@@ -109,6 +111,10 @@ export function useWebSocket() {
 
         case 'approval-request':
           addApproval(message.payload);
+          break;
+
+        case 'task-update':
+          handleTaskUpdate(message.payload);
           break;
       }
     });
